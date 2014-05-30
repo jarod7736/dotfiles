@@ -1,0 +1,84 @@
+[color]
+	ui = auto
+[color "branch"]
+				current = yellow reverse
+				local = yellow
+				remote = green
+[color "diff"]
+				meta = yellow bold
+				frag = magenta bold
+				old = red bold
+				new = green bold
+[color "status"]
+				added = yellow
+				changed = green
+				untracked = cyan
+
+	
+[alias]
+				g = git
+				gf = git flow
+				st = status
+				c = commit -m
+				ca = commit --amend -C HEAD
+				a = add
+				br = branch
+				co = checkout
+				cob = checkout -b
+				df = diff
+				cp = cherry-pick
+
+				#branches
+				#branches = for-each-ref --sort=-committerdate refs/heads/ --format=\'%(committerdate:short) %09%(authorname) %09% (refname:short)\'
+				branches = for-each-ref --sort=-committerdate refs/heads --format='%(committerdate:short) %09%(authorname) %09%(refname:short)'
+				
+
+				#log message aliases
+				lg = log -p
+				who = shortlog -n -s --no-merges
+				lc = log ORIG_HEAD.. --stat --no-merges
+				lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+				ls = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate
+				ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+				lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
+				today = log --stat --since='1 Day Ago' --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+				llog = log --date=local
+				changes = diff --name-status -r
+				diffstat = diff --stat -r
+				dl = "!git ll -1"
+				dlc = diff --cached HEAD^
+
+				#TAGS
+				lasttag = describe --tags --abbrev=0
+				lt = describe --tags --abbrev=0
+
+				#MERGE ALIAS
+				ours = "!f() { git co --ours $@ && git add $@; }; f"
+				theirs = "!f() { git co --theirs $@ && git add $@; }; f"
+
+				#REBASE
+				next = !git add . && git rebase --continue
+
+				#CLEANUP
+				cleanup = !git remote prune origin && git gc && git clean -dfx && git stash clear
+				rmb = !sh -c 'git branch -D $1 && git push origin :$1' -
+
+				#List all aliases
+				la = "!git config -l | grep alias | cut -c 7-"
+
+				#describe
+				desc = describe --always --long
+
+				#fetch upstream and merge/rebase
+				pu = !git fetch origin -v && git fetch $1 -v && git merge $1/$2
+				pur = !git fetch upstream -v && git rebase -i origin/$1
+
+[push]
+				default = simple
+
+[user]
+				name = jarod7736
+				email = jarod7736@gmail.com
+
+[core]
+				excludesfile = /Users/jarod7736/.gitignore_global

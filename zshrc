@@ -24,7 +24,7 @@ fi
 
 export SS_DISPLAY_LIMIT=25
 export ZSH_CUSTOM=~/.dotfiles/zsh_custom
-plugins=(git regex-dirstack vim-interaction)
+plugins=(git regex-dirstack vim-interaction hub sbt scala)
 source $ZSH/oh-my-zsh.sh
 source $ZSH_CUSTOM/themes/gnzh.zsh-theme
 
@@ -39,7 +39,7 @@ unsetopt nomatch
 unsetopt correct_all
 
 if [ $(uname) = Darwin ]; then
-  export PATH=.:~/bin:~/local/bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+  export PATH=.:~/bin:~/local/bin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/opt/
 else
   alias open=gnome-open
   export PATH=.:buildutil:~/bin:~/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
@@ -48,7 +48,9 @@ fi
 export GPGKEY=B2F6D883
 export GPG_TTY=$(tty)
 
-export SBT_OPTS=-XX:PermSize=256M
+export SBT_OPTS="-Xmx2048 -Xms512M -Xmx3536M -Xss1M
+-XX:+CMSClassUnloadingEnabled
+-XX:+UseConcMarkSweepGC -XX:MaxPermSize=2048M"
 
 export EDITOR=vim
 
@@ -245,10 +247,13 @@ alias xg='xargs egrep'
 alias xgi='xargs egrep -i'
 alias pd="cd -"
 alias grss='for f in $(find . -type d -a -name .git); do x=${f%/.git}; echo ==== $x; (cd $x; gss); done'
+alias g='git'
+alias gst='git status'
 alias gd='git diff'
 alias gdc='git diff --cached'
 alias o=octave
 alias mvn=~/bin/mvn-colour
+alias rmtarget='find . -name target -type d -print | xargs /bin/rm -rf'
 
 alias sc=screen
 alias scl="screen -list"
